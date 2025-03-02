@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:treee/utils/constants.dart';
+import 'dart:convert';
 
 Future<DeployedContract> loadContract() async {
   String abi = await rootBundle.loadString("assets/abi.json");
@@ -49,7 +50,7 @@ Future<String> markTreeAsDead(int tokenId, Web3Client ethClient) async {
 
 Future<String> verifyTree(int tokenId, Web3Client ethClient, String verifierPrivateKey) async {
   var response = await callFunction(
-      "verify", [BigInt.from(tokenId)], ethClient, verifierPrivateKey);
+      "verify", [BigInt.from(tokenId)], ethClient, owner_private_key);
   print("Tree verified successfully");
   return response;
 }
@@ -62,6 +63,17 @@ Future<bool> isTreeVerified(int tokenId, String verifierAddress, Web3Client ethC
 Future<String> getTokenURI(int tokenId, Web3Client ethClient) async {
   List<dynamic> result = await ask("tokenURI", [BigInt.from(tokenId)], ethClient);
   return result[0] as String;
+}
+
+Future<List<Map<String, dynamic>>> getAllNFTs(Web3Client ethClient) async {
+  List<dynamic> result = await ask("getAllNFTs", [], ethClient);
+  List<Map<String, dynamic>> nftList = [];
+  
+  for (String jsonString in result[0]) {
+    Map<String, dynamic> nftData = json.decode(jsonString);
+    nftList.add(nftData);
+  }
+  return nftList;
 }
 
 Future<List<dynamic>> ask(String funcName, List<dynamic> args, Web3Client ethClient) async {

@@ -141,6 +141,34 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "latitude",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "longitude",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "species",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "imageUri",
+				"type": "string"
+			}
+		],
+		"name": "mintNft",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
@@ -209,34 +237,6 @@
 		],
 		"name": "ApprovalForAll",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "latitude",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "longitude",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "species",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "imageUri",
-				"type": "string"
-			}
-		],
-		"name": "mintNft",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -421,6 +421,19 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllNFTs",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",

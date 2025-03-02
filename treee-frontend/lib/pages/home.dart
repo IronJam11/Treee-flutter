@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:treee/pages/mint_nft_page.dart';
+import 'package:treee/pages/nfts_display_page.dart';
 import 'package:treee/services/functions.dart';
 import 'package:treee/utils/constants.dart';
 import 'package:walletconnect_flutter_v2/walletconnect_flutter_v2.dart';
@@ -37,13 +38,28 @@ class _HomeState extends State<Home> {
               "Welcome to Treee",
               style: TextStyle(fontSize: 20),
             ),
-            Container(
-              width: double.infinity,
-              height: 45,
-              child: ElevatedButton(onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => MintTreeNFTPage(ethClient: ethClient!)));
-              },
-                child: Text("Mint Treee NFT"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(onPressed: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => MintTreeNFTPage(ethClient: ethClient!)));
+                },
+                  child: Text("Mint Treee NFT"),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(onPressed: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => NFTPage(ethClient: ethClient!)));
+                },
+                  child: Text("Check minted Treee NFTS"),
+                ),
               ),
             )
           ],

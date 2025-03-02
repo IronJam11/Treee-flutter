@@ -7,4 +7,4 @@ String owner_private_key =
 String voter_private_key =
     "4f1806bf574eed4fc92c5e5d7d98db60d57a39514861420087ec1aa50abd76b4";
 
-String CONTRACT_ADDRESS = "0xE9a8cb2494a2477C567Db1D07eaC48C6e8E2860b";
+String CONTRACT_ADDRESS = "0xB458EF48F2eD7a68b8EA858946dbFB303D18deF3";
