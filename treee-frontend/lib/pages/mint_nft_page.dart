@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:web3dart/web3dart.dart';
 import '../services/treee_functions.dart';
 
-
 String API_KEY = dotenv.get('API_KEY', fallback: "");
 String API_SECRET = dotenv.get('API_SECRET', fallback: "");
 
@@ -98,43 +97,87 @@ class _MintTreeNFTPageState extends State<MintTreeNFTPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Mint Tree NFT")),
-      body: Padding(
+      appBar: AppBar(
+        title: Text("Mint Tree NFT", style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        backgroundColor: Colors.green[700],
+      ),
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              controller: _latitudeController,
-              decoration: InputDecoration(labelText: "Latitude"),
-              keyboardType: TextInputType.number,
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Tree Details",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    _buildTextField(_latitudeController, "Latitude", TextInputType.number),
+                    _buildTextField(_longitudeController, "Longitude", TextInputType.number),
+                    _buildTextField(_speciesController, "Species", TextInputType.text),
+                  ],
+                ),
+              ),
             ),
-            TextField(
-              controller: _longitudeController,
-              decoration: InputDecoration(labelText: "Longitude"),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: _speciesController,
-              decoration: InputDecoration(labelText: "Species"),
-            ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             _image == null
-                ? Text("No Image Selected")
-                : Image.file(_image!, height: 150),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: Text("Pick Image"),
-            ),
+                ? Container(
+                    height: 150,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(child: Text("No Image Selected")),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(_image!, height: 150, fit: BoxFit.cover),
+                  ),
+            SizedBox(height: 20),
+            _buildButton("Pick Image", Icons.image, _pickImage, Colors.blueAccent),
             SizedBox(height: 10),
             _isUploading
                 ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _mintNFT,
-                    child: Text("Mint NFT"),
-                  ),
+                : _buildButton("Mint NFT", Icons.token, _mintNFT, Colors.green),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, String label, TextInputType keyboardType) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          filled: true,
+          fillColor: Colors.grey[100],
+        ),
+        keyboardType: keyboardType,
+      ),
+    );
+  }
+
+  Widget _buildButton(String text, IconData icon, VoidCallback onPressed, Color color) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 20),
+      label: Text(text, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: color,
+        elevation: 4,
       ),
     );
   }

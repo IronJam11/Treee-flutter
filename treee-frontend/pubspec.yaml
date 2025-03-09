@@ -41,7 +41,10 @@ dependencies:
   get: ^4.7.2
   niku: ^2.4.3
   web3dart: ^2.3.3
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
   http:
+
 
 
 dev_dependencies:
